@@ -1,14 +1,14 @@
-# Roadkill Developer Readme
+# Roadkill - Morphis Tech Developer Branch
 
 
 ### Pre-requisites
 
 To setup Roadkill on a developer machine, you will need:
 
-* Visual Studio 2013 (2012 should also work)
+* Visual Studio 2013 (2017 should also work)
 * Typescript installed - http://www.typescriptlang.org
 * SQL Server Express 2012 or better, although you can configure Roadkill to work with SQL Server CE or SQLite if you prefer.
-* An NUnit runner (NUnit, Resharper, Dotcover etc.) if you want to run the tests. This is required if you want to contribute.
+* An NUnit runner (NUnit, Resharper, Dotcover etc.) if you want to run the tests.
 
 ### Fresh install
 
