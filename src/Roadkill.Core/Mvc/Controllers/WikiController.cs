@@ -7,6 +7,7 @@ using Roadkill.Core.Services;
 using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Security;
+using System.Linq;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -40,6 +41,7 @@ namespace Roadkill.Core.Mvc.Controllers
 				return RedirectToAction("Index", "Home");
 
 			PageViewModel model = PageService.GetById(id.Value, true);
+            model.AllTags = PageService.AllTags().ToList();
 
 			if (model == null)
 				throw new HttpException(404, string.Format("The page with id '{0}' could not be found", id));

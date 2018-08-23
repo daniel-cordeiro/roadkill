@@ -23,7 +23,9 @@
 }
 
 	<div id="logo">
-		<a href="@(Url.Action("Index", "Home"))"><img src="@Url.ThemeContent("logo.png", SiteSettings)" alt="logo" border="0" /></a>
+		<a href="@(Url.Action("Index", "Home"))">
+            <img src="@Url.ThemeContent("logo.png", SiteSettings)" alt="logo" border="0" />
+        </a>
 	</div>
 	<div id="panel">
 		@Html.Action("NavMenu", "Home")

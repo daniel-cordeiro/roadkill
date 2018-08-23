@@ -131,7 +131,7 @@ namespace Roadkill.Core.Services
 					{
 						IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
 						pageModels = from page in pages
-									select new PageViewModel() { Id = page.Id, Title = page.Title };
+									select new PageViewModel() { Id = page.Id, Title = page.Title, RawTags = page.Tags };
 
 						_listCache.Add<PageViewModel>(cacheKey, pageModels);
 					}
@@ -198,7 +198,16 @@ namespace Roadkill.Core.Services
 						{
 							if (!string.IsNullOrEmpty(tagName))
 							{
-								TagViewModel tagModel = new TagViewModel(tagName);
+                                string[] tagFull = tagName.Split(':');
+                                TagViewModel tagModel;
+                                if (tagFull.Length > 1)
+                                {
+                                    tagModel = new TagViewModel(tagFull[0]);
+                                    tagModel.Description = tagFull[1];
+                                }
+                                else
+                                    tagModel = new TagViewModel(tagName);
+
 								int index = tags.IndexOf(tagModel);
 
 								if (index < 0)

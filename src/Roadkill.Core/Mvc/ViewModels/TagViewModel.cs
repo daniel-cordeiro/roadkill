@@ -16,10 +16,15 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public string Name { get; set; }
 
-		/// <summary>
-		/// The number of times the tag exists in the system.
+        /// <summary>
+		/// The description of the tag
 		/// </summary>
-		public int Count { get; set; }
+		public string Description { get; set; }
+
+        /// <summary>
+        /// The number of times the tag exists in the system.
+        /// </summary>
+        public int Count { get; set; }
 
 		// TODO: tests
 		/// <summary>

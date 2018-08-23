@@ -11,7 +11,8 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-sm-12 tags">
-						@Html.Partial("TagBlocks", Model.Tags)
+                        @{ IEnumerable<string> tagsName = Model.Tags.Any(t => t.Contains(":")) ? Model.Tags.Select(t => t.Split(':')[0]) : Model.Tags;}
+						@Html.Partial("TagBlocks", tagsName)
 					</div>
 				</div>
 

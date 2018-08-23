@@ -257,7 +257,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			id = HttpUtility.UrlDecode(id);
 			ViewData["Tagname"] = id;
-
+            ViewData["Tagdescr"] = _pageService.AllTags().First(t => t.Name == id).Description ?? "";
 			return View(_pageService.FindByTag(id));
 		}
 

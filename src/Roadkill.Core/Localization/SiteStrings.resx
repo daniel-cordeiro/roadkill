@@ -37,7 +37,7 @@
 	<value>Main Page</value>
 </data>
 <data name="Navigation_Categories" xml:space="preserve">
-	<value>Categories</value>
+	<value>Tags</value>
 </data>
 <data name="Navigation_AllPages" xml:space="preserve">
 	<value>All pages</value>

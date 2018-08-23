@@ -1,54 +1,183 @@
 ﻿@model IEnumerable<PageViewModel>
 @{
-	ViewBag.Title = SiteStrings.AllPages_Title;
+    ViewBag.Title = SiteStrings.AllPages_Title;
 }
 @if (RoadkillContext.IsAdmin)
 {
-	<script type="text/javascript">
-		$(function () {
-			Roadkill.Web.Setup.bindConfirmDelete();
-		});
-	</script>
+    <script type="text/javascript">
+        $(function () {
+            Roadkill.Web.Setup.bindConfirmDelete();
+        });
+    </script>
 }
 
 <h1>@SiteStrings.AllPages_Title</h1>
 
 @if (Model.Count() > 0)
 {
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>@SiteStrings.AllPages_TitleColumnHeading</th>
-				@if (RoadkillContext.IsLoggedIn)
-				{
-					<th></th>
-					if (RoadkillContext.IsAdmin)
-					{
-					<th></th>
-					}
-				}
-			</tr>
-		</thead>
-		@foreach (PageViewModel pageModel in Model)
-		{
-			<tr>
-				<td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
-			@if (RoadkillContext.IsLoggedIn)
-			{
-				if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
-				{
-				<td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
-				}
-				if (RoadkillContext.IsAdmin)
-				{
-				<td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
-				}
-			}
-			</tr>
-		}
-	</table>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+            @if (RoadkillContext.IsLoggedIn)
+            {
+                <th></th>
+                if (RoadkillContext.IsAdmin)
+                {
+                    <th></th>
+                }
+            }
+        </tr>
+    </thead>
+    <tr>
+        <td><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".service">► </a><strong>Services</strong></td>
+    </tr>
+    @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("service")))
+    {
+        <tr class="service collapse">
+            <td class="pagename stretch"><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".inner@{@pageModel.Title}" style="padding-left:1em">► </a>@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+            @if (RoadkillContext.IsLoggedIn)
+            {
+                if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
+                {
+                    <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                }
+                if (RoadkillContext.IsAdmin)
+                {
+                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                }
+            }
+        </tr>
+        foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
+        {
+            <tr class="inner@{@pageModel.Title} collapse">
+                <td class="pagename stretch">@Html.ActionLink(innerPageModel.Title, "Index", "Wiki", new { id = innerPageModel.Id, title = innerPageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
+                @if (RoadkillContext.IsLoggedIn)
+                {
+                    if (!innerPageModel.IsLocked || (innerPageModel.IsLocked && RoadkillContext.IsAdmin))
+                    {
+                        <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = innerPageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                    }
+                    if (RoadkillContext.IsAdmin)
+                    {
+                        <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = innerPageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                    }
+                }
+            </tr>
+        }
+    }
+
+    <tr>
+        <td><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".component">► </a><strong>Components</strong></td>
+    </tr>
+
+    @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("component")))
+    {
+        <tr class="component collapse">
+            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
+            @if (RoadkillContext.IsLoggedIn)
+            {
+                if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
+                {
+                    <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                }
+                if (RoadkillContext.IsAdmin)
+                {
+                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                }
+            }
+        </tr>
+    }
+
+    <tr>
+        <td><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".struct">► </a><strong>Data Structures</strong></td>
+    </tr>
+
+    @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("struct")))
+    {
+        <tr class="struct collapse">
+            <td class="pagename stretch"><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".inner@{@pageModel.Title}" style="padding-left:1em">► </a>@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+            @if (RoadkillContext.IsLoggedIn)
+            {
+                if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
+                {
+                    <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                }
+                if (RoadkillContext.IsAdmin)
+                {
+                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                }
+            }
+        </tr>
+        foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
+        {
+            <tr class="inner@{@pageModel.Title} collapse">
+                <td class="pagename stretch">@Html.ActionLink(innerPageModel.Title, "Index", "Wiki", new { id = innerPageModel.Id, title = innerPageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
+                @if (RoadkillContext.IsLoggedIn)
+                {
+                    if (!innerPageModel.IsLocked || (innerPageModel.IsLocked && RoadkillContext.IsAdmin))
+                    {
+                        <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = innerPageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                    }
+                    if (RoadkillContext.IsAdmin)
+                    {
+                        <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = innerPageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                    }
+                }
+            </tr>
+        }
+    }
+
+    @*@foreach (PageViewModel pageModel in Model)
+        {
+            <tr>
+                <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+                @if (RoadkillContext.IsLoggedIn)
+                {
+                    if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
+                    {
+                        <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                    }
+                    if (RoadkillContext.IsAdmin)
+                    {
+                        <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                    }
+                }
+            </tr>
+        }*@
+
+    <tr class="pagename stretch">
+        <td><a id="pageName" data-toggle="collapse" data-target="#demo">► Page Group Example</a></td>
+    </tr>
+    <tr>
+        <td>
+            <div id="demo" class="collapse">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </div>
+        </td>
+    </tr>
+</table>
+<script>
+    //$(document).ready(function () {
+    //    $("#demo").on("hide.bs.collapse", function () {
+    //        $("#pageName").html('► Page Group');
+    //    });
+    //    $("#demo").on("show.bs.collapse", function () {
+    //        $("#pageName").html('▼ Page Group');
+    //    });
+    //});
+    function toggleArrow(elmnt) {
+        if (elmnt.text == '► ')
+            elmnt.text = '▼ ';
+        else
+            elmnt.text = '► ';
+    }
+
+    </script>
 }
 else
 {
-	<p>@SiteStrings.AllPages_NoPages</p>
+    <p>@SiteStrings.AllPages_NoPages</p>
 }

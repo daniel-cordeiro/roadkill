@@ -1,6 +1,6 @@
 ﻿@model PageViewModel
 @{
-	ViewBag.Title = SiteStrings.EditPage_Title;
+    ViewBag.Title = SiteStrings.EditPage_Title;
 }
 
 <script type="text/javascript">
@@ -21,7 +21,8 @@
 		<form class="form-horizontal" role="form" method="post" id="editpage-form">
 			@(Html.HiddenFor<PageViewModel, int>(p => p.Id))
 			@(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
-			@(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+            @{string RawTags = string.Join(",", Model.AllTags.Where(t => Model.RawTags.Contains(t.Name)).Select(x => x.Name));}
+			@(Html.HiddenFor<PageViewModel, string>(p => RawTags))
 
 			<div class="form-group">
 				<div class="col-sm-12">
