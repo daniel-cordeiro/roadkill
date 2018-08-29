@@ -35,7 +35,7 @@
     @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("service")))
     {
         <tr class="service collapse">
-            <td class="pagename stretch"><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".inner@{@pageModel.Title}" style="padding-left:1em">► </a>@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, new { @style = "padding-left:2em" })</td>
             @if (RoadkillContext.IsLoggedIn)
             {
                 if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
@@ -48,7 +48,7 @@
                 }
             }
         </tr>
-        foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
+        @*foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
         {
             <tr class="inner@{@pageModel.Title} collapse">
                 <td class="pagename stretch">@Html.ActionLink(innerPageModel.Title, "Index", "Wiki", new { id = innerPageModel.Id, title = innerPageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
@@ -64,7 +64,7 @@
                     }
                 }
             </tr>
-        }
+        }*@
     }
 
     <tr>
@@ -74,7 +74,7 @@
     @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("component")))
     {
         <tr class="component collapse">
-            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
+            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, new { @style = "padding-left:2em" })</td>
             @if (RoadkillContext.IsLoggedIn)
             {
                 if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
@@ -96,7 +96,7 @@
     @foreach (PageViewModel pageModel in Model.Where(t => t.Tags.Contains("struct")))
     {
         <tr class="struct collapse">
-            <td class="pagename stretch"><a onclick="toggleArrow(this)" data-toggle="collapse" data-target=".inner@{@pageModel.Title}" style="padding-left:1em">► </a>@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, new { @style = "padding-left:2em" })</td>
             @if (RoadkillContext.IsLoggedIn)
             {
                 if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
@@ -109,7 +109,7 @@
                 }
             }
         </tr>
-        foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
+        @*foreach (PageViewModel innerPageModel in Model.Where(t => t.Tags.Contains(pageModel.Title)))
         {
             <tr class="inner@{@pageModel.Title} collapse">
                 <td class="pagename stretch">@Html.ActionLink(innerPageModel.Title, "Index", "Wiki", new { id = innerPageModel.Id, title = innerPageModel.EncodedTitle }, new { @style = "padding-left:3em" })</td>
@@ -125,7 +125,7 @@
                     }
                 }
             </tr>
-        }
+        }*@
     }
 
     @*@foreach (PageViewModel pageModel in Model)
@@ -146,7 +146,7 @@
             </tr>
         }*@
 
-    <tr class="pagename stretch">
+    @*<tr class="pagename stretch">
         <td><a id="pageName" data-toggle="collapse" data-target="#demo">► Page Group Example</a></td>
     </tr>
     <tr>
@@ -157,17 +157,9 @@
                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </div>
         </td>
-    </tr>
+    </tr>*@
 </table>
 <script>
-    //$(document).ready(function () {
-    //    $("#demo").on("hide.bs.collapse", function () {
-    //        $("#pageName").html('► Page Group');
-    //    });
-    //    $("#demo").on("show.bs.collapse", function () {
-    //        $("#pageName").html('▼ Page Group');
-    //    });
-    //});
     function toggleArrow(elmnt) {
         if (elmnt.text == '► ')
             elmnt.text = '▼ ';

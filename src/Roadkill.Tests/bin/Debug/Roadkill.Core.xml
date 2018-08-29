@@ -2741,6 +2741,11 @@
             The name of the tag
             </summary>
         </member>
+        <member name="P:Roadkill.Core.Mvc.ViewModels.TagViewModel.Description">
+            <summary>
+            The description of the tag
+            </summary>
+        </member>
         <member name="P:Roadkill.Core.Mvc.ViewModels.TagViewModel.Count">
             <summary>
             The number of times the tag exists in the system.
