@@ -1,48 +1,30 @@
 # Roadkill - Morphis Tech Developer Branch
 
+These are instructions for Morphis developers. Please refer
 
 ### Pre-requisites
 
 To setup Roadkill on a developer machine, you will need:
 
-* Visual Studio 2013 (2017 should also work)
+* Visual Studio
 * Typescript installed - http://www.typescriptlang.org
 * SQL Server Express 2012 or better, although you can configure Roadkill to work with SQL Server CE or SQLite if you prefer.
-* An NUnit runner (NUnit, Resharper, Dotcover etc.) if you want to run the tests.
+  * **Note: *If you don't want to add core functionality that interacts with the default database schema, you can use the demo Postgres database (Roadkill) running at AWS-RDS.***
 
-### Fresh install
-
-To get a 'fresh' Roadkill installation on your development machine, you will need to do the following:
-
-* For IIS: create a new site with a .NET 4 application pool. Roadkill also works with IIS Express.
-* If you're using SQL Server: create a database called "roadkill". Run the `/lib/Test-databases/roadkill-sqlserver.sql` script.
-  * If you want to use SQLite or SQLServer CE, empty databases can be found `/lib/Test-databases/SqlCE` or Sqlite.
-* You can also install Roadkill using the unattended url, e.g.: http://localhost/install/Unattended?datastoretype=sqlserver2008&connectionstring=database=roadkill;uid=sa;pwd=Passw0rd;server=.\SQLEXPRESS
+### Fresh install (morphis-tech environment)
 
 
-### Build scripts
+Follow these instructions in order to deploy and run the project on your machine.
+* Open the solution (Roadkill.sln) on Visual Studio.
+* Set up *Roadkill&#46;Web* as the Startup Project.
+* Build the solution. If everything goes as expected, both *Roadkill&#46;Web* and *Roadkill&#46;Core* should build successfully.
+* Run/Debug over IIS using your preferred browser.
+
+### Build scripts (can be used on generation scripts)
 
 There are 4 build scripts that automate the builds:
 
-* build.ps1 - runs msbuild with the solution file
+* build.ps1 - runs msbuild with the solution file. Same as building on Visual Studio.
 * devbuild.ps1 - builds and copies all files required for a dev build, zips the files and then pushes the zip file to the 'RoadkillBuilds' repository on Bitbucket (https://bitbucket.org/yetanotherchris/roadkillbuilds).
 * releasebuild.ps1 - The same as devbuild.ps1 but uses the `release` build configuration and only produces a zip file.
-* mono.releasebuild.ps1 - Uses the the `mono` build configuration. 
-
-### Running Roadkill on Azure
-Roadkill can be run using a website deploy on Windows Azure. The instructions for this can be found on the [Roadkill wiki](http://www.roadkillwiki.net/wiki/13/azure-website-deployments)
-
-### Syncing with Git
-
-Mercurial (Bitbucket) hosting is synced with Github and Codeplex Git hosting using the Hg-To-Git plugin for Mercurial. These commands are then run:
-
-- hg pull -u
-- hg bookmark -f master
-- hg push git+ssh://git@github.com/yetanotherchris/roadkill.git
-
-Codeplex is then synced from Github using `git push --all https://git01.codeplex.com/roadkill`
-
-
-### Contributing
-
-If you want to contribute to Roadkill, have a look at the Contributing page on the [Roadkill wiki](http://www.roadkillwiki.net/wiki/4/contributing): 
+* mono.releasebuild.ps1 - Uses the the `mono` build configuration. Use this on Linux.
