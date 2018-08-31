@@ -30,6 +30,7 @@ _ReSharper*/
 
 # Attachments test directory
 [Aa]ttachments/
+!src/Roadkill.Core/Attachments/
 
 # All lucene index directories
 [Ss]earch/
