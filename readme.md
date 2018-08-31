@@ -20,11 +20,4 @@ Follow these instructions in order to deploy and run the project on your machine
 * Build the solution. If everything goes as expected, both *Roadkill&#46;Web* and *Roadkill&#46;Core* should build successfully.
 * Run/Debug over IIS using your preferred browser.
 
-### Build scripts (can be used on generation scripts)
 
-There are 4 build scripts that automate the builds:
-
-* build.ps1 - runs msbuild with the solution file. Same as building on Visual Studio.
-* devbuild.ps1 - builds and copies all files required for a dev build, zips the files and then pushes the zip file to the 'RoadkillBuilds' repository on Bitbucket (https://bitbucket.org/yetanotherchris/roadkillbuilds).
-* releasebuild.ps1 - The same as devbuild.ps1 but uses the `release` build configuration and only produces a zip file.
-* mono.releasebuild.ps1 - Uses the the `mono` build configuration. Use this on Linux.
