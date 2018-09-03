@@ -56,16 +56,16 @@ namespace Roadkill.Core.Mvc.Controllers
 			settingsModel.ConnectionString = connectionString;
 			settingsModel.AllowedFileTypes = "jpg,png,gif,zip,xml,pdf";
 			settingsModel.AttachmentsFolder = "~/App_Data/Attachments";
-			settingsModel.MarkupType = "Creole";
-			settingsModel.Theme = "Responsive";
-			settingsModel.UseObjectCache = true;
-			settingsModel.UseBrowserCache = true;
+			settingsModel.MarkupType = "MediaWiki";
+			settingsModel.Theme = "Mediawiki";
+			settingsModel.UseObjectCache = false;
+			settingsModel.UseBrowserCache = false;
 			settingsModel.AdminEmail = "admin@localhost";
-			settingsModel.AdminPassword = "Password1";
+			settingsModel.AdminPassword = "password1";
 			settingsModel.AdminRoleName = "admins";
 			settingsModel.EditorRoleName = "editors";
-			settingsModel.SiteName = "my site";
-			settingsModel.SiteUrl = "http://localhost";
+			settingsModel.SiteName = "Transformer COBOL dev";
+			settingsModel.SiteUrl = "http://localhost:9090";
 
 			FinalizeInstall(settingsModel);
 
